@@ -8,8 +8,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import model.PurchaseItemDto;
 import dao.TransactionDao;
 import dao.TransactionDetailDao;
@@ -62,9 +60,17 @@ public class TransactionService {
               productDao.batchUpdate(DbConnection.connection, products);
 
             DbConnection.connection.commit();
+            DbConnection.connection.close();
             return String.valueOf(total);
         } catch (SQLException ex) {
-            Logger.getLogger(TransactionService.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace(); // Untuk debugging, tampilkan trace pengecualian
+            try {
+                if (DbConnection.connection != null) {
+                    DbConnection.connection.rollback();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
         return null;
     }

@@ -9,10 +9,7 @@ import java.sql.SQLException;
 
 public class TransactionDao {
     
-        private static final String INSERT_TRANSACTION_ALL = "INSERT INTO transaction (id, date, total, cashier, buyer) values (? , ?,  ? ,  ? , ? )";
-
-        private static final String SHOW_TRANSACTION = "";
-    
+        private static final String INSERT_TRANSACTION_ALL = "INSERT INTO transaction (id, date, total, cashier, buyer) values (? , ?,  ? ,  ? , ? )";    
     
     public void create(Connection connection , Transaction transaction) throws SQLException{
         PreparedStatement  statement = null;
